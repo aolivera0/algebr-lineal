@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="contenedor-resultados">
+    <h3> La matriz de coeficientes reducida es: </h3>
+    <table class="table">
+        <tbody>
+            {% for f in range(0, nFilas) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, nColumnas-1) %}
+                <td>
+                    {{ matrizReducida [f][c]}}
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <h3> Y los resultados son: </h3>
+    <table class="table">
+        <tbody>
+            {% for f in range(0, nColumnas-1) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, 1) %}
+                <td>
+                    {{ matrizRes[f][c]}}
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <button class="boton-volver mt-4" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+{% endblock %}
+
+

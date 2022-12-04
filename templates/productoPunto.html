@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="contenedor-ingresar-datos">
+<form action="{{url_for('resultadoProductoPunto')}}" method="POST" class="row g-3">
+    <h3 class="titulo-ingresar-datos"> Ingrese los valores del vector u </h3>
+
+    <table class="table">
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+        <tbody>
+            {% for f in range(0, data['nFilas']) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                <td>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"></label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" name="{{f+1}}"
+                            aria-describedby="emailHelp">
+                    </div>
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="titulo-ingresar-datos"> Ingrese los valores del vector w </h3>
+
+    <table class="table">
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+        <tbody>
+
+            {% for f in range(0, data['nFilas']) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                <td>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"></label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" name="{{f+1}}"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="boton"> Calcular </button>
+</form>
+<button class="boton-volver mt-4" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+{% endblock %}

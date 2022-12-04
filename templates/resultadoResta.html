@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="contenedor-resultados">
+    <h3> El resultado de la resta de matrices (A-B) es: </h3>
+    <table class="table">
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+        <tbody>
+            {% for f in range(0, nFilas) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, nColumnas) %}
+                <td>
+                    {{ matrizRes[f][c]}}
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <button class="boton-volver" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+{% endblock %}

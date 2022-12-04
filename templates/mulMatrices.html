@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="contenedor-ingresar-datos">
+<form action="{{url_for('resultadoMultiMatrices')}}" method="POST" class="row g-3">
+    <h3 class="titulo-ingresar-datos"> Ingrese los datos de la Matriz A </h3>
+
+    <table class="table">
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+        <tbody>
+                <div class="">  
+                    <input type="text" readonly="readonly" name="nFilasA" value="{{data['nFilasA']}}"  class="form-control ocultarInput" placeholder="{{data['nFilasA']}}">
+                    <input type="text" readonly="readonly" name="nColumnasA" value="{{data['nColumnasA']}}"  class="form-control ocultarInput" placeholder="{{data['nColumnasA']}}">
+                    <input type="text" readonly="readonly" name="nFilasB" value="{{data['nFilasB']}}"  class="form-control ocultarInput" placeholder="{{data['nFilasB']}}">
+                    <input type="text" readonly="readonly" name="nColumnasB" value="{{data['nColumnasB']}}"  class="form-control ocultarInput" placeholder="{{data['nColumnasB']}}">
+                </div>
+            {% for f in range(0, data['nFilasA']) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, data['nColumnasA']) %}
+                <td>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Elemento {{f+1}}{{c+1}}</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="A{{f+1}}{{c+1}}"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="titulo-ingresar-datos"> Ingrese los datos de la Matriz B </h3>
+
+    <table class="table">
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+        <tbody>
+
+            {% for f in range(0, data['nFilasB']) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, data['nColumnasB']) %}
+                <td>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Elemento {{f+1}}{{c+1}}</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="B{{f+1}}{{c+1}}"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="boton"> Calcular </button>
+</form>
+<button class="boton-volver mt-4" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+{% endblock %}

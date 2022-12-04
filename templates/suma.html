@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="contenedor-ingresar-datos">
+    <form action="{{url_for('resultadoSuma')}}" method="POST" class="row g-3">
+        <h3 class="titulo-ingresar-datos"> Ingrese los datos de la matriz A </h3>
+
+        <table class="table">
+            <thead>
+                <!--<tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>-->
+            </thead>
+            <tbody>
+                {% for f in range(0, data['nFilas']) %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    {% for c in range(0, data['nColumnas']) %}
+                    <td>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> Elemento {{f+1}}{{c+1}} </label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="{{f+1}}{{c+1}}"
+                                aria-describedby="emailHelp" required>
+                        </div>
+                    </td>
+                    {% endfor %}
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="titulo-ingresar-datos"> Ingrese los datos de la matriz B </h3>
+
+        <table class="table">
+            <thead>
+                <!--<tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>-->
+            </thead>
+            <tbody>
+                {% for f in range(0, data['nFilas']) %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    {% for c in range(0, data['nColumnas']) %}
+                    <td>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Elemento {{f+1}}{{c+1}}</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="{{f+1}}{{c+1}}"
+                                aria-describedby="emailHelp" required>
+                        </div>
+                    </td>
+                    {% endfor %}
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" class="boton" name="action" value="Calcular suma">
+        <input type="submit" class="boton" name="action" value="Calcular resta">
+    </form>
+    <button class="boton-volver mt-4" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+</div>
+{% endblock %}

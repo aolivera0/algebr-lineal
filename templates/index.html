@@ -1,0 +1,479 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- <h1 class="mb-6"> Herramientas para Álgebra Lineal </h1> -->
+<div class="background">
+    <div class="contenedor-bg">
+        <h1 class="tituloPrincipal" id="matrices"> Matrices </h1>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="titulo"> ¿Qué son? </h2>
+    <p> Una matriz A de m x n, es un arreglo rectangular de m filas por n columnas. Donde <span class="negrita"> a<span class="peque">11</span> </span>hasta <span class="negrita"> a<span class="peque">nm</span> </span> son
+    los valores de la matriz que se tomarán como números reales a menos de que se establezca lo contrario.</p>
+    <div class="contenedor-imagen">
+        <img class="imagen img-fluid" src="../static/img/matriz1.webp" alt="matriz">
+    </div>
+    <p> El arreglo de filas (<span class="negrita"> a<span class="peque">i1</span> </span> <span class="negrita"> a<span class="peque">i2</span> </span> <span class="negrita"> a<span class="peque">i3</span> </span>… <span class="negrita"> a<span class="peque">in</span> </span>) se llama fila <span class="negrita"> i </span> es decir que el número de la fila de la matriz en la nos ubicamos es igual a <span class="negrita"> i</span>. Por otro lado, el arreglo de columnas se llama columna <span class="negrita"> j</span> es decir que el número de la columna de la matriz en la nos ubicamos es igual a <span class="negrita"> j</span>. </p>
+
+    <!-- Suma de matrices -->
+    <h2 class="titulo"> Suma o resta de matrices</h2>
+    <p> Si las matrices <span class="negrita"> A=(a<span class="peque">ij</span>) </span> y <span class="negrita"> B=(a<span class="peque">ij</span>) </span> son del mismo tamaño <span class="negrita"> ij </span> (mismo número de filas y columnas), se suman o se restan componente a componente. </p>
+    <div class="contenedor-imagen">
+        <img class="img-fluid imagen" src="../static/img/matrizSuma.webp" alt="">
+    </div>
+    <h3> Calcular suma o resta de matrices </h3>
+    <form action="{{url_for('leerFormSum')}}" method="POST" class="row g-3" id ="form-suma">
+        <select id="filas-suma" required class="form-select" name="numeroFilas" aria-label="Default select example" >
+            <option selected>Seleccione el número de filas de las matrices </option>
+            {% for i in range(1, rango) %}
+            <option value="{{i+1}}">{{i+1}}</option>
+            {% endfor %}
+        </select>
+
+        <select id="columnas-suma" required class="form-select" name="numeroColumnas" aria-label="Default select example">
+            <option selected>Seleccione el número de columnas de las matrices </option>
+            {% for i in range(1, rango) %}
+            <option value="{{i+1}}">{{i+1}}</option>
+            {% endfor %}
+        </select>
+
+        <div class="col-12" style="margin-top: 30px;">
+            <button type="submit" class="boton" id="boton">Calcular</button>
+        </div>
+    </form><!-- Suma -->
+
+    <!--Mult por escalar -->
+    <h2 class="titulo"> Multiplicación por escalar <h2 />
+        <p> Se multiplica el escalar por cada elemento de la matriz </p>
+        <h3> Calcular multiplicación de matrices por escalar </h3>
+        <form action="{{url_for('leermultPorEscalar')}}" method="POST" class="row g-3" id="form-escalar">
+            <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-escalar">
+                <option selected>Seleccione el número de filas de la matriz </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-escalar">
+                <option selected>Seleccione el número de columnas de la matriz </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+
+            <div class="col-12" style="margin-top: 30px;">
+                <button type="submit" class="boton">Calcular</button>
+            </div>
+        </form><!-- multPorEscalar-->
+
+        <!-- Multiplicación de matrices -->
+    <h2 class="titulo"> Multiplicación de matrices </h2>
+        <p>Para realizar el producto entre las matrices <span class="negrita">A</span> y <span class="negrita">B</span>,
+            es necesario que el número de <span class="negrita">columnas </span>de la primera matriz sea igual al número
+            de <span class="negrita">filas </span> de la segunda matriz. Después se hace el producto escalar de la 1ra
+            fila de la primera matriz con cada columna de la segunda matriz. Los resultados de cada producto escalar, se
+            colocan en fila y son los valores de la matriz resultado. Así se repite el proceso con todas las filas de la
+            primera matriz.
+        </p>
+        <p> <span class="negrita"> El tamaño de la matriz resultante pasa a ser el número de filas de la primera matriz,
+                por el número de columnas de la segunda matriz. </span> Además cabe destacar que la multiplicación de
+            matrices <span class="negrita"> no </span> es conmutativa, es decir AxB no es igual a BxA.</p>
+        <div class="contenedor-imagen">
+            <img src="../static/img/multMat1.png" alt="">
+            <img src="../static/img/multMat2.png" alt="">
+        </div>
+        <h3> Calcular multiplicación entre matrices </h3>
+        <form action="{{url_for('leerMulMatrices')}}" method="POST" class="row g-3" id="form-mult">
+            <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filasA-mult">
+                <option selected>Seleccione el número de filas de la matriz A </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnasA-mult">
+                <option selected>Seleccione el número de columnas de la matriz A </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filasB-mult"> 
+                <option selected>Seleccione el número de filas de la matriz B </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnasB-mult">
+                <option selected>Seleccione el número de columnas de la matriz B </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <div class="col-12" style="margin-top: 30px;">
+                <button type="submit" class="boton">Calcular</button>
+            </div>
+        </form><!-- Multiplicación de matrices -->
+
+        <!--Traza -->
+        <h2 class="titulo">Traza de una Matriz </h2>
+        <h3> Calcular la traza de una matriz </h3>
+        <p>La traza de una matriz cuadrada A de nxn está definida como la <span class="negrita">suma de los elementos de
+                la diagonal principal de A</span>. Otra forma de llamarlo sería la suma total de todo los valores <span
+                class="negrita">a<span class="peque">ij</span></span> cuando <span class="negrita">i=j</span>.
+        </p>
+        <div class="contenedor-imagen">
+            <img src="../static/img/traza.png" alt="">
+        </div>
+        <form action="{{url_for('leerTraza')}}" method="POST" class="row g-3" id="form-traza">
+            <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-traza">
+                <option selected>Seleccione el número de filas de la matriz </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-traza">
+                <option selected>Seleccione el número de columnas de la matriz </option>
+                {% for i in range(1, rango) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                {% endfor %}
+            </select>
+
+            <div class="col-12" style="margin-top: 30px;">
+                <button type="submit" class="boton">Calcular</button>
+            </div>
+        </form><!-- Traza-->
+
+        <!--Transpuesta -->
+        <h2 class="titulo"> Transpuesta de una Matriz
+            <h2 />
+            <p>Siendo A una matriz mxn su matriz transpuesta se obtiene poniendo los valores de las filas como columnas
+                y el tamaño de la matriz sería de nxm.</p>
+            <p> Su símbolo se escribe como A^T. Además, la transpuesta de la transpuesta de A, es la misma matriz A.</p>
+            <div class="contenedor-imagen">
+                <img src="../static/img/inversa.png" alt="">
+            </div>
+            <h3> Calcular la transpuesta de una matriz </h3>
+            <form action="{{url_for('leerTranspuesta')}}" method="POST" class="row g-3" id="form-transpuesta">
+                <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-transpuesta">
+                    <option selected>Seleccione el número de filas de la matriz </option>
+                    {% for i in range(1, rango) %}
+                    <option value="{{i+1}}">{{i+1}}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-transpuesta">
+                    <option selected>Seleccione el número de columnas de la matriz </option>
+                    {% for i in range(1, rango) %}
+                    <option value="{{i+1}}">{{i+1}}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="col-12" style="margin-top: 30px;">
+                    <button type="submit" class="boton">Calcular</button>
+                </div>
+            </form><!-- Transpuesta-->
+
+            <!--Inversa-->
+            <h2 class="titulo"> Matriz identidad e inversa de una matriz
+                <h2 />
+                <div class="contenedor-imagen">
+                    <img src="../static/img/identidad1.png" alt="">
+                </div>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/identidad2.png" alt="">
+                </div>
+                <p> Y la matriz inversa de A es aquella matriz, es la matriz que multiplicada por A es igual a la matriz
+                    identidad. Su símbolo es A^(-1) entonces A*A^(-1)= I </p>
+                <p> NOTA. Toda matriz nxn multiplicada por la identidad nxn es igual a ella misma. I*A=A*I=A</p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/inversa2.png" alt="">
+                </div>
+                <h3> Calcular la inversa de una matriz </h3>
+                <form action="{{url_for('leerInversa')}}" method="POST" class="row g-3" id="form-inversa">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-inversa">
+                        <option selected>Seleccione el número de filas de la matriz </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-inversa">
+                        <option selected>Seleccione el número de columnas de la matriz </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Inversa-->
+
+                <!-- Determinante -->
+                <h2 class="titulo"> Determinantes </h2>
+                <p> El determinante de una matriz 2x2 </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/2x2.png" alt="" width="200px">
+                </div>
+                <p> Está dado por: </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/det2x2.png" alt="" width="325px">
+                </div>
+                <p> Cuando la matriz cuadrada es de mayor tamaño se expande las filas o las columnas (es elección del
+                    estudiante) por cofactores. </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/cofactores.png" alt="" width="750px">
+                </div>
+                <p> Por ejemplo: </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/detEj.jpg" alt="" width="600px">
+                </div>
+                <p> También se pueden calcular determinantes por <span class="negrita"> matriz triangular </span>, este
+                    proceso consiste en reducir la matriz de tal manera que los valores encima o debajo de la <span
+                        class="negrita"> diagonal principal </span> sean iguales a 0, formando un triángulo como lo dice
+                    su nombre. De esta manera el determinante de la matriz triangular inferior o superior es la
+                    multiplicación de los valores de la diagonal principal. También este método es similar a la
+                    reducción por Gauss Jordan, la única diferencia radica en que si se divide o se multiplica una línea
+                    completa, hay que multiplicar su inverso junto con los valores de la diagonal principal. </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/ejemploTriangular.png" alt="">
+                </div>
+                <h3> Calcular determinante de una matriz </h3>
+                <form action="{{url_for('leerFormDet')}}" method="POST" class="row g-3" id="form-determinante">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-determinante">
+                        <option selected>Seleccione el número de filas</option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-determinante">
+                        <option selected>Seleccione el número de columnas</option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Determinante -->
+
+                <!-- Gauss jordan -->
+                <h2 class="titulo"> Gauss Jordan </h2>
+                <h3> Reducir una matriz por gauss Jordan</h3>
+                <form action="{{url_for('leerGauss')}}" method="POST" class="row g-3" id="form-gauss">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-gauss">
+                        <option selected>Seleccione el número de filas de la matriz a reducir </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+    
+                    <select class="form-select" name="numeroColumnas" aria-label="Default select example" id="columnas-gauss">
+                        <option selected>Seleccione el número de columnas de la matriz a reducir (agrege una más para la columna de resultados) </option>
+                        {% for i in range(2, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+    
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Gauss Jordan-->
+            </div>
+
+
+                <div class="background">
+                    <div class="contenedor-bg-2 mt-5">
+                        <h1 class="tituloPrincipal" id="vectores"> Vectores </h1>
+                    </div>
+                </div>
+            
+<div class="container">
+    <h2 class="titulo"> Vectores en R2 y R3 </h2>
+    <div class="contenedor-imagen">
+        <img src="../static/img/defVectores.png" alt="">
+    </div>
+    <p> Por ejemplo todas estas son representaciones del vector puesto que tienen la misma dirección y la misma magnitud</p>
+    <div class="contenedor-imagen">
+        <img src="../static/img/vecs.png" alt="">
+    </div>
+    <p> Por otro lado tenemos otra definición para los vectores: </p>
+    <div class="contenedor-imagen">
+        <img src="../static/img/defVec2.png" alt="">
+    </div>
+
+                <!--Norma -->
+                <h2 class="titulo"> Norma de un Vector </h2>
+                <p>La magnitud o norma de un vector está dada por: </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/magnitud.png" alt="" width="200px">
+                </div>
+                <h3> Calcular la norma o magnitud de un vector </h3>
+                <form action="{{url_for('leerNorma')}}" method="POST" class="row g-3" id="form-norma">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-norma">
+                        <option selected>Seleccione el número de componentes del vector </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Norma-->
+
+                <!-- Dirección -->
+                <h2 class="titulo"> Dirección de un vector </h2>
+                <p>Y la dirección de un vector </p>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/direccion.png" alt="">
+                </div>            
+                <h3> Calcular dirección de un vector </h3>
+                <form action="{{url_for('leerDireccion')}}" method="POST" class="row g-3" id="form-direccion">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-direccion">
+                        <option selected>Seleccione el número de componentes del vector </option>
+                        <option value="2">2</option>
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Dirección-->
+
+                <!-- Vector unitario -->
+                <h2 class="titulo"> Vector unitario </h2>
+                <p> Un vector unitario es un vector cuya norma o magnitud es 1</p>
+                <h3> Calcular el vector unitario </h3>
+                <form action="{{url_for('leerUnitario')}}" method="POST" class="row g-3" id="form-unitario">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-unitario">
+                        <option selected>Seleccione el número de componentes del vector </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Vector unitario -->
+
+                <!-- Producto punto -->
+                <h2 class="titulo"> Producto punto </h2>
+                <div class="contenedor-imagen">
+                    <img src="../static/img/productoEscalar.png" alt="">
+                </div>
+                <h3> Calcular el producto punto </h3>
+                <form action="{{url_for('leerProductoPunto')}}" method="POST" class="row g-3" id="form-productoPunto">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-productoPunto">
+                        <option selected>Seleccione el número de componentes de los vectores </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Producto punto -->
+
+                <!-- Ortonormalización  -->
+                <h2 class="titulo"> Ortonormalización de Gram-Schmidth </h2>
+                <h3> Calcular base ortonormalziada con Gram-Schmidth </h3>
+                <form action="{{url_for('leerGram')}}" method="POST" class="row g-3" id="form-gram">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-gram">
+                        <option selected>Seleccione la dimensión del espacio  </option>
+                        {% for i in range(1, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- Ortonormalización -->
+
+                <h2 class="titulo"> Espacios vectoriales <h2 />
+                    <p>Espacio vectorial es el conjunto de vectores que cumplen con los 10 axiomas de suma y multiplicación</p>            
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/espaciosVec.png" alt="">
+                    </div>
+                <h2 class="titulo"> Subespacios vectoriales<h2 />
+                    <p>Un subespacio es un subconjunto no vacío de un espacio vectorial. Para que sea Subespacio debe cumplir las siguientes 2 reglas.
+                    </p>            
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/subespacioVec.png" alt="">
+                    </div>
+                <h2 class="titulo"> Combinación lineal<h2 />
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/combinacionLineal.png" alt="">
+                    </div>
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/CL1.png" alt="">
+                    </div>
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/CL2.png" alt="">
+                    </div>
+                
+                <h2 class="titulo"> Conjunto generador <h2 />
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/generador.png" alt="">
+                    </div>
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/genEjemp.png" alt="">
+                    </div>
+                <h2 class="titulo"> Dependencia e independencia lineal<h2 />
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/depenLineal.png" alt="">
+                    </div>
+                <h2 class="titulo"> Base <h2 />
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/base.png" alt="">
+                    </div>
+                <h2 class="titulo"> Dimensión <h2 />
+                    <p> Es el número de elementos de una base. </p>            
+                    <div class="contenedor-imagen">
+                        <img src="../static/img/dimension.png" alt="">
+                    </div>
+
+                <!-- Valores propios  -->
+                <h2 class="titulo"> Valores propios</h2>
+                <h3> Calcular valores propios de una matriz </h3>
+                <form action="{{url_for('leerValoresPropios')}}" method="POST" class="row g-3" id="form-valores">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-valores">
+                        <option selected>Seleccione el número de filas de la matriz  </option>
+                        {% for i in range(0, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- valores propios-->
+
+                <!-- vectores propios -->
+                <h2 class="titulo"> Vectores propios </h2>
+                <h3> Calcular vector ortonormalziado con Gram-Schmidth </h3>
+                <form action="{{url_for('leerVectoresPropios')}}" method="POST" class="row g-3" id="form-vectores">
+                    <select class="form-select" name="numeroFilas" aria-label="Default select example" id="filas-vectores">
+                        <option selected>Seleccione el número de componentes del vector </option>
+                        {% for i in range(0, rango) %}
+                        <option value="{{i+1}}">{{i+1}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-12" style="margin-top: 30px;">
+                        <button type="submit" class="boton">Calcular</button>
+                    </div>
+                </form><!-- vectores proipios -->
+</div>
+{% endblock %}

@@ -1,0 +1,190 @@
+def gauss_Jorda_p1(matriz_t, matriz_r):
+    def div_pivote(fila,resultado,nf):
+    
+        #print(nf)
+        
+        num=fila[nf]
+        #print(num)
+        #if num==0:
+         #   for i in range(len(fila)):
+          #      fila[i]=0
+        if num!=0:
+            #print("resultado op")
+            #print(resultado[nf])
+            resultado[nf]=resultado[nf]/num
+            for i in range(len(fila)):
+                fila[i]=fila[i]/num
+                
+        #print(fila)
+        #print(resultado) 
+        #print("")
+       
+        #print(fila)
+        return fila, resultado
+    
+    ##div_pivote(0)
+    
+    def suma_filas(m1,m2,resultado,nf,nr):
+        
+        #print(nf)
+        num=m2[nf]
+        m_temp=[]
+        m_temp_r=[]
+        for i in range(len(m1)):
+            m_temp.append(m1[i])
+        for i in range(len(resultado)):
+            m_temp_r.append(resultado[i])
+    
+        if num<0:
+            num=num*-1
+       
+        for i in range(len(m_temp)):    
+            m_temp[i] = m_temp[i]*num
+            
+        #print(matriz_temp)
+        if m2[nf]>0:
+            #print(resultado[nr])
+            resultado[nr]=resultado[nr]-(num*m_temp_r[nf])
+            #print(resultado[nr])
+            for i in range(len(m2)):
+                m2[i]=m2[i]-m_temp[i]
+                
+        else:
+            #print(resultado[nr])
+            resultado[nr]=resultado[nr]+(num*m_temp_r[nf])
+            #print(resultado[nr])
+            for i in range(len(m2)):
+                m2[i]=m2[i]+m_temp[i]
+        #print(m2)
+                
+       # for i in range(len(m1)):      
+        #    m1[i] = m1[i]/num     
+            
+        #print(m2)
+                
+        return m2, resultado
+      
+    recorrido=0
+    recorrido2=0
+    
+    
+    if len(matriz_t)>=len(matriz_t[0]):
+        recorrido=len(matriz_t)
+        recorrido2=len(matriz_t[1])
+    
+    if len(matriz_t)<len(matriz_t[0]):
+        recorrido=len(matriz_t)
+        recorrido2=len(matriz_t[1])
+    
+    cont=0
+    
+    for i in range(recorrido):
+
+        
+        matriz_t[i]=div_pivote(matriz_t[i],matriz_r,cont)[0]
+        matriz_r=div_pivote(matriz_t[i],matriz_r,cont)[1]
+
+            
+        for j in range(i+1,recorrido):
+
+            if i>=len(matriz_t[0]) and len(matriz_t)!=len(matriz_t[0]):
+
+                break
+            matriz_t[j]= suma_filas(matriz_t[i], matriz_t[j],matriz_r,i,j)[0]
+            matriz_r= suma_filas(matriz_t[i], matriz_t[j],matriz_r,i,j)[1]
+
+        if cont!=recorrido2-1:    
+            cont=cont+1
+
+    
+
+    matrizfinal=matriz_t
+    matrizresultado=matriz_r
+ 
+            
+    
+
+#--------borrar suma_columan cuando acabee-----------
+
+#print(gauss_Jorda_p1())    
+
+
+
+# metodo normal  matrizfinal[cont], cont_col
+
+
+
+    def suma_columna2(m1, m2, resultado, cont_col,nr):
+        
+        
+        num=m2[cont_col]
+        m_temp=[]
+        m_temp_r=[]
+        for i in range(len(m1)):
+            m_temp.append(m1[i])
+        for i in range(len(resultado)):
+            m_temp_r.append(resultado[i])
+        if num<0:
+            num=num*-1
+    
+        for i in range(len(m_temp)):
+            #print(m_temp[i])
+            m_temp[i] = m_temp[i]*num
+            
+        #print(m_temp)
+        #print(m_temp_r)
+        if m2[cont_col]>0:
+            #print(resultado[nr])
+            resultado[nr]=resultado[nr]-(num*m_temp_r[cont_col])
+            #print(resultado[nr])
+            for i in range(len(m2)):
+                m2[i]=m2[i]-m_temp[i]
+        else:
+            #print(resultado[nr])
+            resultado[nr]=resultado[nr]+(num*m_temp_r[cont_col])
+            #print(resultado[nr])
+            for i in range(len(m2)):
+                m2[i]=m2[i]+m_temp[i]  
+                
+        return m2, resultado         
+    
+    recorrido=0
+    recorrido2=0
+    if len(matrizfinal)!=len(matrizfinal[0]):
+        recorrido=len(matrizfinal)-1
+        recorrido2=len(matrizfinal[1])
+    if len(matrizfinal)==len(matrizfinal[0]):
+        recorrido=len(matrizfinal)-1
+        recorrido2=len(matrizfinal[1])
+        
+    
+
+    
+    cont=recorrido-1
+    cont_col=recorrido2-1
+    cf=0
+    for i in range(recorrido):
+        if len(matrizfinal)>len(matrizfinal[0]): 
+            cont_col=len(matrizfinal[0])-1+cf 
+            cont=cont_col-1
+        if len(matrizfinal)==len(matrizfinal[0]): 
+            cont=recorrido-1+cf
+            cont_col=recorrido2-1+cf 
+        if len(matrizfinal)<len(matrizfinal[0]):
+            cont_col=len(matrizfinal)-1+cf 
+            cont=cont_col-1
+            
+        for j in range(i+1,recorrido2):
+
+            matrizfinal[cont]=suma_columna2(matrizfinal[cont_col],matrizfinal[cont],matrizresultado ,cont_col,cont)[0]
+            matrizresultado=suma_columna2(matrizfinal[cont_col], matrizfinal[cont], matrizresultado, cont_col, cont)[1]
+            #print("ciclo")
+            #print("")
+            if cont!=0:
+                cont=cont-1
+            #print("reinicio")
+        if cont_col!=0:    
+            cont_col=cont_col-1
+        #print("vuelta")    
+        cf=cf-1
+    return matrizfinal, matrizresultado

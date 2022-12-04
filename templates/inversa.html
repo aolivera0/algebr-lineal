@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="contenedor-ingresar-datos">
+<form action="{{url_for('resultadoInversa')}}" method="POST" class="row g-3">
+    <table class="table">
+        <h3 class="titulo-ingresar-datos"> Ingrese los datos de la Matriz </h3>
+        <div class="">  
+            <input type="text" readonly="readonly" name="nFilas" value="{{data['nFilas']}}"  class="form-control ocultarInput" placeholder="{{data['nFilas']}}">
+            <input type="text" readonly="readonly" name="nColumnas" value="{{data['nColumnas']}}"  class="form-control ocultarInput" placeholder="{{data['nColumnas']}}">
+        </div>
+        <thead>
+            <!--<tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>-->
+        </thead>
+            {% for f in range(0, data['nFilas']) %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                {% for c in range(0, data['nColumnas']) %}
+                <td>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Elemento {{f+1}}{{c+1}}</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="{{f+1}}{{c+1}}"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                </td>
+                {% endfor %}
+                {% endfor %}
+            </tr>
+            </tbody>
+    </table>
+    <button type="submit" class="boton">Calcular</button>
+</form>
+<button class="boton-volver mt-4" onclick="history.back()" href="javascript:history.back()"> Volver </button>
+</div>
+{% endblock %}
